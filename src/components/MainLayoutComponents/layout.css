@@ -1,0 +1,54 @@
+.avatar-wrapper{
+  z-index: 50;
+}
+
+#matchlist-avatar{
+  z-index: -10;
+}
+
+.current-target{
+  box-shadow:
+    0 0 1.5px 1.5px rgba(230, 138, 138, 0.294),
+    0 0 3px 3px rgba(255, 145, 0, 0.349), 
+    0 0 4px 4px rgba(255, 0, 221, 0.164); 
+}
+#online-status{
+  background-color: white;
+}
+
+#online-status:before{
+  content: " ";
+  position: absolute;
+  z-index: -1;
+  height: 15px;
+  width: 15px;
+  top: -4px;
+  left: -4px;
+  right: 5px;
+  bottom: 5px;
+  border: 5px solid #f3f0ee;
+  border-radius: 50%;
+}
+
+.online-status-on{
+  animation: ripple 6s infinite ease-in-out;
+}
+
+@keyframes ripple {
+    0% {
+      background-color: rgb(0, 255, 76);
+    }
+    50% {
+      background-color: rgb(23, 194, 7);
+
+      }
+    100% {
+      background-color: rgb(0, 255, 76);
+   
+    }
+  }
+
+.MuiDrawer-paper {
+  width: 100vw;
+  /* background-color: #514949; */
+}

@@ -1,0 +1,62 @@
+.card {
+  position: relative;
+  /* width: 600px; */
+  padding: 20px;
+  max-width: 85vw;
+  height: 50vh;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0px 18px 53px 0px rgba(0, 0, 0, 0.3);
+  
+}
+
+.card > h3 {
+  position: absolute;
+  bottom: 10px;
+  color: white;
+}
+
+.tinderCards__cardContainer {
+  display: flex;
+  justify-content: center;
+  /* margin-top: 5vh; */
+}
+
+.infoText{
+  /* position: relative; */
+  /* bottom: 60px; */
+  margin-left: auto;
+  max-width: 500px;
+  text-align: center;
+}
+
+.swipe {
+  position: absolute; /* This absolute position will take them from the default position and will stack them on top of each other*/
+}
+
+#radio-buttons{
+  /* position: absolute; */
+  /* bottom: -550px; */
+  /* bottom: -72vh; */
+  /* z-index: 9999; */
+  /* top: 5px; */
+  background-color: white;
+  border-radius: 20px;
+  /* max-width: calc(100vw-20px); */
+}
+#filter-button{
+  position: absolute;
+  z-index: 9999;
+  top: 10px;
+  /* top: 5px; */
+}
+
+#tinder-card-page-wrapper{
+  min-height: 600px;
+  /* max-width: 600px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: blue; */
+}

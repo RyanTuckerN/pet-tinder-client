@@ -1,0 +1,162 @@
+.background {
+  /* background-color: rgb(241, 235, 223); */
+  /* background-image: url("https://res.cloudinary.com/dmvwjinuq/image/upload/v1632268030/dog_background2_whnbxi.jpg"); */
+  /* min-height: 100vh; */
+  /* max-width: 100%; */
+  /* position: relative; */
+  opacity: 0.85;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  background-size: cover;
+}
+
+/* @media (max-width: 480px) {
+  .background {
+    width: 100%;
+  }
+} */
+
+@media (max-width: 480px) {
+  .background {
+    background-image: url("https://res.cloudinary.com/dmvwjinuq/image/upload/v1632286590/dog_background2_mobile_p5nx9u.jpg");
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .background {
+    background-image: url("https://res.cloudinary.com/dmvwjinuq/image/upload/v1632286590/dog_background2_tablet_gok0ey.jpg");
+  }
+}
+
+@media (min-width: 1025px) {
+  .background {
+    background-image: url("https://res.cloudinary.com/dmvwjinuq/image/upload/v1632286590/dog_background2_desktop_kkl5cp.jpg");
+  }
+}
+
+/* ALL OF THESE ARE NOT BEING USED  */
+body .background {
+  height: 100%;
+  width: 100%;
+}
+
+#spacer {
+  height: 100px;
+}
+
+#home1 {
+  font-family: "Rampart One";
+  color: #f3f0ee;
+  position: relative;
+  /* float: center; */
+  font-size: 40px;
+}
+
+@media (max-width: 767px) {
+  #home1 {
+    font-size: 16px;
+  }
+}
+
+#home2 {
+  font-family: "Rampart One";
+  color: #f3f0ee;
+  position: relative;
+  right: -200px;
+  /* position: absolute; 
+    bottom: 250px;
+    right: 450px;   */
+}
+
+#home3 {
+  /* position: relative; */
+  bottom: -205px;
+  font-family: "Azeret Mono", monospace;
+  color: #f3f0ee;
+  padding-top: 10px;
+}
+
+#home4 {
+  /* position: relative; */
+  bottom: -260px;
+  font-family: "Azeret Mono", monospace;
+  color: #f3f0ee;
+}
+
+/* #doglogo {
+position: absolute;
+height: 60px;
+top: -148px;
+right: 430px;
+z-index: 1;
+} 
+
+
+@media (max-width: 768px) {
+    #doglogo {
+    position: absolute;
+    height: 40px;
+    top: -115px;
+    right: 200px;
+    z-index: 1;
+    }
+} */
+/* 
+ @media (min-width: 770px) {
+    #doglogo {
+    position: absolute;
+    height: 30px;
+    top: -200px;
+    right: -500px;
+    z-index: 1;
+    }
+}  */
+/* 
+#chat {
+
+    color: #B05B3B;
+   font-size: 100px;
+   position: absolute;
+   align-items: center;
+   justify-content: center;
+   top: -165px;   
+   right: 410px;
+} */
+
+/* @media (max-width: 768px) {
+    #chat {
+        color: #B05B3B;
+        font-size: 60px;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        top: -125px;   
+        right: 190px;
+    }
+} */
+
+/* @media (min-width: 770px) {
+    #chat {
+        color: #B05B3B;
+        font-size: 30px;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        top: -56px;   
+        right: 75px;
+    }
+}  */
+
+/* 
+.logo-merge {
+    position: absolute; 
+    top: 10;
+    right: 0;
+    width: 85vw;
+} */
+
+.homepage {
+  position: relative;
+  top: -80px;
+}
