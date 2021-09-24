@@ -50,8 +50,11 @@ const ChatIndex = (props) => {
       socket.on("priorMessages", (conversation) =>
         setMessages(conversation.messages)
       );
-      socket.on("incomingMessage", ({ message, conversation }) =>
-        setMessages(conversation.messages)
+      socket.on("incomingMessage", ({ message, conversation }) =>{
+        console.log('BALLS CHAT TARGET ',chatTarget)
+        console.log('BALLS MESSAGE ',message)
+        console.log('BALLS CONVERSATION ', conversation)
+        setMessages(conversation.messages)}
       );
     }
     return handleExitChat;
