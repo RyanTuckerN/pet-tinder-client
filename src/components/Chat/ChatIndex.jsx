@@ -57,7 +57,7 @@ const ChatIndex = (props) => {
       socket.on("priorMessages", (conversation) => {
         console.log('priorMessages: ', conversation)
         setMessages(conversation.messages);
-        setCurrentConversation(conversation.id);
+        setCurrentConversation([conversation.user1Id, conversation.user2Id]);
       });
       socket.on("incomingMessage", ({ message, conversation }) => {
         // console.log(' CHAT TARGET ',chatTarget)
@@ -66,7 +66,7 @@ const ChatIndex = (props) => {
         // console.log('incoming message conversation: ',conversation);
         // console.log('incoming message message: ', message);
         console.log( 'BEFORE message.conversationId :', message.conversationId, 'currentConversation: ', currentConversation)
-        if (currentConversation == message.conversationId) {
+        if (currentConversation?.includes(chatTarget.id)) {
           console.log('its a match!')
           setMessages(conversation.messages);
         }
