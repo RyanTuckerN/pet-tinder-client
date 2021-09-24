@@ -88,7 +88,7 @@ function App() {
   //FETCHING NOTIFICATIONS
   useEffect(() => {
     const notificationsFetch = async () => {
-      const response = await fetch(`http://localhost:3333/note/`, {
+      const response = await fetch(`${API_URL}/note/`, {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
