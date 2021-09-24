@@ -58,6 +58,7 @@ const ChatIndex = (props) => {
         // console.log(' CHAT TARGET ',chatTarget)
         // console.log(' MESSAGE ',message)
         // console.log('CONVERSATION ', conversation)
+        console.log(conversation)
         setMessages(conversation.messages)}
       );
     }
