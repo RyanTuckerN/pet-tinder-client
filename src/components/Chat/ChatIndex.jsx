@@ -30,6 +30,10 @@ const ChatIndex = (props) => {
       if (chatMessage.length >= 255) {
         alert("Your message is too long! Keep it under 255 characters.");
       } else {
+        console.log('MESSAGE', chatMessage)
+        console.log('SENDER',usersInfo.user)
+        console.log('RECEIVER',chatTarget.user)
+        console.log('chatTarget',chatTarget)
         socket.emit("message", {
           text: chatMessage,
           sender: usersInfo.user,
