@@ -20,7 +20,7 @@ const ImageUpload = (props) => {
         }
       );
       const File = await res.json();
-      console.log(File);
+      // console.log(File);
       setPhoto_url(File.secure_url);
     } catch (err) {
       console.error(err);

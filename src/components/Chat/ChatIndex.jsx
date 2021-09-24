@@ -60,8 +60,8 @@ const ChatIndex = (props) => {
         // console.log('CONVERSATION ', conversation)
         // console.log(conversation);
         if (
-          chatTarget?.id === conversation.user1Id ||
-          chatTarget?.id === conversation.user2Id
+          chatTarget?.id == conversation.user1Id ||
+          chatTarget?.id == conversation.user2Id
         ) {
           setMessages(conversation.messages);
         } else {console.log(
@@ -69,7 +69,7 @@ const ChatIndex = (props) => {
         )}
       });
     }
-    return handleExitChat;
+    // return handleExitChat;
   }, [socket]);
 
   useEffect(scrollToBottom, [messages]);

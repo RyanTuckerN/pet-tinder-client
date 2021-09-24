@@ -37,7 +37,7 @@ export default function NotificationsPage(props) {
       a[b.id] = b.photo_url;
       return a;
     }, {});
-    console.log(picDictionary);
+    // console.log(picDictionary);
     setMatchImages(picDictionary);
   }, [usersInfo]);
 
@@ -50,7 +50,7 @@ export default function NotificationsPage(props) {
       }),
     });
     const deletionsJson = await fetchDelete.json();
-    console.log(deletionsJson);
+    // console.log(deletionsJson);
     setNotifications(null);
   };
   const handleChatTarget = (notification) => {

@@ -130,7 +130,7 @@ const PotentialMatches = (props) => {
         body: JSON.stringify({ superlike: dir === "up" ? true : false }),
       });
       const json = await likeFetch.json();
-      console.log(json);
+      // console.log(json);
       socket.emit("matchRequest", usersInfo?.user?.id);
 
       //fetch matches again, see if there is a change
@@ -152,7 +152,7 @@ const PotentialMatches = (props) => {
         const newMatch = secondMatches.filter(
           (match) => !firstMatches.map((d) => d.id).includes(match.id)
         )[0];
-        console.log("NEW MATCH: ", newMatch);
+        // console.log("NEW MATCH: ", newMatch);
         const selfNote = await fetch(
           `${API_URL}/note/${usersInfo?.user?.id}`,
           {
@@ -181,7 +181,7 @@ const PotentialMatches = (props) => {
 
         const targetJson = await targetNote.json();
         const selfJson = await selfNote.json();
-        console.log("NOTIFICATION RESPONSES: ", selfJson, targetJson);
+        // console.log("NOTIFICATION RESPONSES: ", selfJson, targetJson);
         socket.emit("notificationRequest", {
           userId: usersInfo?.user?.id,
           target: id,
@@ -194,7 +194,7 @@ const PotentialMatches = (props) => {
   };
 
   const swiped = (dir, idToDelete) => {
-    console.log("removing :", idToDelete);
+    // console.log("removing :", idToDelete);
     setLastDirection(dir);
     alreadyRemoved.push(idToDelete);
     if (dir === "left" || dir === "down") return;
@@ -202,7 +202,7 @@ const PotentialMatches = (props) => {
   };
 
   const outOfFrame = (id) => {
-    console.log(id + " left the screen!");
+    // console.log(id + " left the screen!");
     dogsState = dogsState.filter((dog) => dog.id !== id);
     setPotentialMatches(dogsState);
   };
