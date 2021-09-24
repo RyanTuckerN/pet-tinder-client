@@ -1,6 +1,9 @@
 {
   "name": "pet-tinder",
   "version": "0.1.0",
+  "engines": {
+    "node": "15.14.0"
+  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
