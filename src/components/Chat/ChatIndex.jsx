@@ -55,7 +55,7 @@ const ChatIndex = (props) => {
         setMessages(conversation.messages)
       );
       socket.on("incomingMessage", ({ message, conversation }) => {
-          setMessages([...messages, message]);
+          setMessages(conversation.messages);
       });
     }
     // return handleExitChat;
