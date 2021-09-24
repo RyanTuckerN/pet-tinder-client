@@ -86,21 +86,22 @@ function App() {
   }, [socket, token, userId]);
 
   //FETCHING NOTIFICATIONS
-  useEffect(() => {
-    const notificationsFetch = async () => {
-      const response = await fetch(`${API_URL}/note/`, {
-        method: "GET",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        }),
-      });
-      const notificationsJson = await response.json();
-      console.log(notificationsJson.notifications);
-      setNotifications(notificationsJson.notifications)
-    };
-    notificationsFetch();
-  }, [usersInfo?.matches]);
+  // useEffect(() => {
+
+  //   const notificationsFetch = async () => {
+  //     const response = await fetch(`${API_URL}/note/`, {
+  //       method: "GET",
+  //       headers: new Headers({
+  //         "Content-Type": "application/json",
+  //         Authorization: localStorage.getItem("token"),
+  //       }),
+  //     });
+  //     const notificationsJson = await response.json();
+  //     console.log(notificationsJson.notifications);
+  //     setNotifications(notificationsJson.notifications)
+  //   };
+  //   notificationsFetch();
+  // }, [usersInfo?.matches]);
 
   //PROPS OBJECT
   const mainLayoutProps = {
