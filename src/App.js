@@ -50,7 +50,7 @@ function App() {
 
   //OPENING A NEW SOCKET FOR CHAT AND REAL-TIME FEATURES
   useEffect(() => {
-    const newSocket = io(`http://${window.location.hostname}:3333`);
+    const newSocket = io(`${API_URL}`);
     setSocket(newSocket);
     return () => {
       newSocket.close();
