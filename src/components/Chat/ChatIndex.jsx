@@ -10,6 +10,7 @@ const ChatIndex = (props) => {
     props.chatProps;
   const [chatMessage, setChatMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [currentConversation, setCurrentConversation] = useState(null);
 
   const messagesEndRef = useRef(null);
   const scrollToBottom = () =>
@@ -17,10 +18,12 @@ const ChatIndex = (props) => {
   const handleAlign = (m, i) =>
     m.user._id == i.user.id ? "flex-end" : "flex-start";
   const handleChange = (e) => setChatMessage(e.target.value);
-  const handleExitChat = () => {
-    setChatTarget(null);
-    setMessages([]);
-  };
+
+  // const handleExitChat = () => {
+  //   setChatTarget(null);
+  //   setMessages([]);
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!chatTarget) {
@@ -51,20 +54,18 @@ const ChatIndex = (props) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on("priorMessages", (conversation) =>
-        setMessages(conversation.messages)
-      );
+      socket.on("priorMessages", (conversation) => {
+        setMessages(conversation.messages);
+        setCurrentConversation(conversation.id);
+      });
       socket.on("incomingMessage", ({ message, conversation }) => {
         // console.log(' CHAT TARGET ',chatTarget)
         // console.log(' MESSAGE ',message)
         // console.log('CONVERSATION ', conversation)
         // console.log(conversation);
-        if (
-          chatTarget?.id == conversation.user1Id ||
-          chatTarget?.id == conversation.user2Id
-        ) {
+        if (currentConversation === conversation.id) {
           setMessages(conversation.messages);
-        } 
+        }
         // else {console.log(
         //   'I tried...'
         // )}
