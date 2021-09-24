@@ -3,7 +3,7 @@ import "./Home.css";
 // import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 
 
-const Home = (props) => {
+const Home = () => {
   return (
     <div className="background">
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import MatchDisplay from "./MatchDisplay";
+import API_URL from "../_helpers/environment";
 
 const Matches = (props) => {
   const { usersInfo, socket } = props;
@@ -10,7 +11,7 @@ const Matches = (props) => {
     const fetchLikesFetch = async () => {
       try {
         const likesFetch = await fetch(
-          "http://localhost:3333/like/superlikes",
+          `${API_URL}/like/superlikes`,
           {
             method: "GET",
             headers: new Headers({

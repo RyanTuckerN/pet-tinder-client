@@ -9,6 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
+import API_URL from "../_helpers/environment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +42,7 @@ export default function NotificationsPage(props) {
   }, [usersInfo]);
 
   const handleClear = async () => {
-    const fetchDelete = await fetch("http://localhost:3333/note/", {
+    const fetchDelete = await fetch(`${API_URL}/note/`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",

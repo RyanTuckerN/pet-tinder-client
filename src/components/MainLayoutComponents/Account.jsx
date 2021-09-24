@@ -9,6 +9,7 @@ import Pets from "@material-ui/icons/Pets";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, Container } from "@material-ui/core";
 import NotConnected from "./NotConnected";
+import API_URL from "../_helpers/environment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,7 +75,7 @@ const Account = (props) => {
     }
 
     try {
-      const fetchResults = await fetch("http://localhost:3333/user/", {
+      const fetchResults = await fetch(`${API_URL}/user/`, {
         method: "PUT",
         body: JSON.stringify({
           profile_name,

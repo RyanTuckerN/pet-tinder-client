@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { StarBorder, AccountCircle } from "@material-ui/icons";
 import "./Matches.css";
 import distanceBetCoor from "../../functions/distanceBetCoor";
+import API_URL from "../_helpers/environment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +37,7 @@ export default function MatchDisplay(props) {
 
   const handleUnlike = async (id) => {
     try {
-      const unlikeFetch = await fetch(`http://localhost:3333/like/${id}`, {
+      const unlikeFetch = await fetch(`${API_URL}/like/${id}`, {
         method: "DELETE",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -44,7 +45,7 @@ export default function MatchDisplay(props) {
         }),
       });
       const deleteNotificationFetch = await fetch(
-        `http://localhost:3333/note/${id}`,
+        `${API_URL}/note/${id}`,
         {
           method: "DELETE",
           headers: new Headers({
@@ -55,8 +56,8 @@ export default function MatchDisplay(props) {
       );
       const noteJson = await deleteNotificationFetch.json();
       const unlikeJson = await unlikeFetch.json();
-      console.log(unlikeJson);
-      console.log(noteJson);
+      // console.log(unlikeJson);
+      // console.log(noteJson);
       socket.emit("matchRequest", usersInfo?.user?.id);
       socket.emit("notificationRequest", {
         userId: usersInfo?.user?.id,
