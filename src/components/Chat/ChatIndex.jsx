@@ -33,7 +33,7 @@ const ChatIndex = (props) => {
         // console.log('MESSAGE', chatMessage)
         // console.log('SENDER',usersInfo.user)
         // console.log('RECEIVER',chatTarget.user)
-        console.log('chatTarget before emit "message"',chatTarget)
+        // console.log('chatTarget before emit "message"',chatTarget)
         socket.emit("message", {
           text: chatMessage,
           sender: usersInfo.user,
