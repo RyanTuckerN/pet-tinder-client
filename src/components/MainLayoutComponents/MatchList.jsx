@@ -44,7 +44,7 @@ const MatchList = (props) => {
               <ListItem
                 button
                 onClick={() => {
-                  console.log("CHAT TARGET: ", match);
+                  // console.log("CHAT TARGET: ", match);
                   handleDrawerClose();
                   setChatTarget(match);
                   socket.emit("chat", {

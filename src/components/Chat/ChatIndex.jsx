@@ -64,9 +64,10 @@ const ChatIndex = (props) => {
           chatTarget?.id == conversation.user2Id
         ) {
           setMessages(conversation.messages);
-        } else {console.log(
-          'I tried...'
-        )}
+        } 
+        // else {console.log(
+        //   'I tried...'
+        // )}
       });
     }
     // return handleExitChat;
