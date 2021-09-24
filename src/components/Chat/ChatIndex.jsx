@@ -30,10 +30,10 @@ const ChatIndex = (props) => {
       if (chatMessage.length >= 255) {
         alert("Your message is too long! Keep it under 255 characters.");
       } else {
-        console.log('MESSAGE', chatMessage)
-        console.log('SENDER',usersInfo.user)
-        console.log('RECEIVER',chatTarget.user)
-        console.log('chatTarget',chatTarget)
+        // console.log('MESSAGE', chatMessage)
+        // console.log('SENDER',usersInfo.user)
+        // console.log('RECEIVER',chatTarget.user)
+        // console.log('chatTarget',chatTarget)
         socket.emit("message", {
           text: chatMessage,
           sender: usersInfo.user,
@@ -55,9 +55,9 @@ const ChatIndex = (props) => {
         setMessages(conversation.messages)
       );
       socket.on("incomingMessage", ({ message, conversation }) =>{
-        console.log('BALLS CHAT TARGET ',chatTarget)
-        console.log('BALLS MESSAGE ',message)
-        console.log('BALLS CONVERSATION ', conversation)
+        // console.log(' CHAT TARGET ',chatTarget)
+        // console.log(' MESSAGE ',message)
+        // console.log('CONVERSATION ', conversation)
         setMessages(conversation.messages)}
       );
     }

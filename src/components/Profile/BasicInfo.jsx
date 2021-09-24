@@ -49,7 +49,7 @@ export default function BasicInfo(props) {
               }`
             );
             const breedJson = await breedInfo.json();
-            console.log(breedJson.temperament.split(","));
+            // console.log(breedJson.temperament.split(","));
             setTemperament(breedJson.temperament.split(","));
           } catch (err) {
             console.error(err);

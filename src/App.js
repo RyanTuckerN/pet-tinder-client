@@ -64,44 +64,44 @@ function App() {
       socket.emit("newLogin", userId);
       socket.on("userCreated", (obj) => {
         setUsersInfo({ ...usersInfo, matches: obj.matches, user: obj.user });
-        console.log("💎 USER/MATCHES: ", obj);
-        console.log("🔧 SOCKET ID: ", socket.id);
+        // console.log("💎 USER/MATCHES: ", obj);
+        // console.log("🔧 SOCKET ID: ", socket.id);
       });
       socket.on("newUser", (socketIds) => {
         setOnlineUsers(socketIds);
-        console.log("ONLINE USERS SOCKETS: ", socketIds.mobileSockets);
+        // console.log("ONLINE USERS SOCKETS: ", socketIds.mobileSockets);
       });
       socket.on('matchUpdate', obj=>{
-        console.log('COMMAND YOU TO ->', obj.message)
+        // console.log('COMMAND YOU TO ->', obj.message)
         socket.emit('newLogin', userId)
       })
       socket.on('matchResponse', matches=>{
-        console.log('matchRESPONSE!', matches)
+        // console.log('matchRESPONSE!', matches)
       })
       socket.on('notificationResponse', notifications=>{
-        console.log('📓📓📓📓📓',notifications)
+        // console.log('📓📓📓📓📓',notifications)
         setNotifications(notifications)
       })
     } 
   }, [socket, token, userId]);
 
   //FETCHING NOTIFICATIONS
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const notificationsFetch = async () => {
-  //     const response = await fetch(`${API_URL}/note/`, {
-  //       method: "GET",
-  //       headers: new Headers({
-  //         "Content-Type": "application/json",
-  //         Authorization: localStorage.getItem("token"),
-  //       }),
-  //     });
-  //     const notificationsJson = await response.json();
-  //     console.log(notificationsJson.notifications);
-  //     setNotifications(notificationsJson.notifications)
-  //   };
-  //   notificationsFetch();
-  // }, [usersInfo?.matches]);
+    const notificationsFetch = async () => {
+      const response = await fetch(`${API_URL}/note/`, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        }),
+      });
+      const notificationsJson = await response.json();
+      // console.log(notificationsJson.notifications);
+      setNotifications(notificationsJson.notifications)
+    };
+    notificationsFetch();
+  }, [usersInfo?.matches]);
 
   //PROPS OBJECT
   const mainLayoutProps = {

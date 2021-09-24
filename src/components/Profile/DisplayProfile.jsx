@@ -45,7 +45,7 @@ const DisplayProfile = (props) => {
           `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`
         );
         const json = await res.json();
-        console.log("REVERSE GEO:", json);
+        // console.log("REVERSE GEO:", json);
         if(!json.locality && !json.city)return
         setLocale({
           locale: json.city ? json.city : json.locality ,

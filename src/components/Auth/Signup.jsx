@@ -103,7 +103,7 @@ const Signup = (props) => {
         }),
       });
       const json = await fetchResults.json();
-      console.log("json response", json);
+      // console.log("json response", json);
       updateToken(json.sessionToken);
     } catch (err) {
       console.error(err);
