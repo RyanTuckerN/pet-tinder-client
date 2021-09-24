@@ -59,6 +59,11 @@ const ChatIndex = (props) => {
         setMessages(conversation.messages);
         setCurrentConversation([conversation.user1Id, conversation.user2Id]);
       });
+    }
+    // return handleExitChat;
+  }, [socket]);
+  useEffect(()=>{
+    if(socket) {
       socket.on("incomingMessage", ({ message, conversation }) => {
         // console.log(' CHAT TARGET ',chatTarget)
         // console.log(' MESSAGE ',message)
@@ -73,10 +78,9 @@ const ChatIndex = (props) => {
         else {console.log(
           'I tried... message.conversationId :', message.conversationId, 'currentConversation: ', currentConversation
         )}
-      });
+      })
     }
-    // return handleExitChat;
-  }, [socket]);
+  }, [socket])
 
   useEffect(scrollToBottom, [messages]);
 
