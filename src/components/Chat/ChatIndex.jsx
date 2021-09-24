@@ -62,14 +62,15 @@ const ChatIndex = (props) => {
         // console.log(' CHAT TARGET ',chatTarget)
         // console.log(' MESSAGE ',message)
         // console.log('CONVERSATION ', conversation)
-        console.log('incoming message conversation: ',conversation);
-        console.log('incoming message message: ', message);
+        // console.log('incoming message conversation: ',conversation);
+        // console.log('incoming message message: ', message);
+        console.log( 'BEFORE message.conversationId :', message.conversationId, 'currentConversation: ', currentConversation)
         if (currentConversation == message.conversationId) {
           console.log('its a match!')
           setMessages(conversation.messages);
         }
         else {console.log(
-          'I tried...'
+          'I tried... message.conversationId :', message.conversationId, 'currentConversation: ', currentConversation
         )}
       });
     }
