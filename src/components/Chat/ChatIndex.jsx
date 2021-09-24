@@ -55,6 +55,7 @@ const ChatIndex = (props) => {
   useEffect(() => {
     if (socket) {
       socket.on("priorMessages", (conversation) => {
+        console.log('priorMessages: ', conversation)
         setMessages(conversation.messages);
         setCurrentConversation(conversation.id);
       });
