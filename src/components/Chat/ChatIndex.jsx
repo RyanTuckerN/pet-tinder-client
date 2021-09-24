@@ -65,11 +65,12 @@ const ChatIndex = (props) => {
         console.log('incoming message conversation: ',conversation);
         console.log('incoming message message: ', message);
         if (currentConversation == message.conversationId) {
+          console.log('its a match!')
           setMessages(conversation.messages);
         }
-        // else {console.log(
-        //   'I tried...'
-        // )}
+        else {console.log(
+          'I tried...'
+        )}
       });
     }
     // return handleExitChat;
