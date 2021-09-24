@@ -1,5 +1,5 @@
 import { Avatar, Typography } from "@material-ui/core";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import "./Chat.css";
 import React, { useState, useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
@@ -44,23 +44,30 @@ const ChatIndex = (props) => {
     setChatMessage("");
   };
 
-  useEffect(()=>{
-    setChatActive(true)
-    return ()=>setChatActive(false)
-  },[])
+  useEffect(() => {
+    setChatActive(true);
+    return () => setChatActive(false);
+  }, []);
 
   useEffect(() => {
     if (socket) {
       socket.on("priorMessages", (conversation) =>
         setMessages(conversation.messages)
       );
-      socket.on("incomingMessage", ({ message, conversation }) =>{
+      socket.on("incomingMessage", ({ message, conversation }) => {
         // console.log(' CHAT TARGET ',chatTarget)
         // console.log(' MESSAGE ',message)
         // console.log('CONVERSATION ', conversation)
-        console.log(conversation)
-        setMessages(conversation.messages)}
-      );
+        // console.log(conversation);
+        if (
+          chatTarget?.id === conversation.user1Id ||
+          chatTarget?.id === conversation.user2Id
+        ) {
+          setMessages(conversation.messages);
+        } else {console.log(
+          'I tried...'
+        )}
+      });
     }
     return handleExitChat;
   }, [socket]);
