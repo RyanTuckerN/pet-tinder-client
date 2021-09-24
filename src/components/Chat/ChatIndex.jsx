@@ -10,7 +10,6 @@ const ChatIndex = (props) => {
     props.chatProps;
   const [chatMessage, setChatMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [currentConversation, setCurrentConversation] = useState(null);
 
   const messagesEndRef = useRef(null);
   const scrollToBottom = () =>
@@ -18,12 +17,10 @@ const ChatIndex = (props) => {
   const handleAlign = (m, i) =>
     m.user._id == i.user.id ? "flex-end" : "flex-start";
   const handleChange = (e) => setChatMessage(e.target.value);
-
-  // const handleExitChat = () => {
-  //   setChatTarget(null);
-  //   setMessages([]);
-  // };
-
+  const handleExitChat = () => {
+    setChatTarget(null);
+    setMessages([]);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!chatTarget) {
@@ -36,7 +33,7 @@ const ChatIndex = (props) => {
         // console.log('MESSAGE', chatMessage)
         // console.log('SENDER',usersInfo.user)
         // console.log('RECEIVER',chatTarget.user)
-        // console.log('chatTarget',chatTarget)
+        console.log('chatTarget before emit "message"',chatTarget)
         socket.emit("message", {
           text: chatMessage,
           sender: usersInfo.user,
@@ -54,33 +51,15 @@ const ChatIndex = (props) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on("priorMessages", (conversation) => {
-        console.log('priorMessages: ', conversation)
-        setMessages(conversation.messages);
-        setCurrentConversation([conversation.user1Id, conversation.user2Id]);
+      socket.on("priorMessages", (conversation) =>
+        setMessages(conversation.messages)
+      );
+      socket.on("incomingMessage", ({ message, conversation }) => {
+          setMessages(conversation.messages);
       });
     }
     // return handleExitChat;
   }, [socket]);
-  useEffect(()=>{
-    if(socket) {
-      socket.on("incomingMessage", ({ message, conversation }) => {
-        // console.log(' CHAT TARGET ',chatTarget)
-        // console.log(' MESSAGE ',message)
-        // console.log('CONVERSATION ', conversation)
-        // console.log('incoming message conversation: ',conversation);
-        // console.log('incoming message message: ', message);
-        console.log( 'BEFORE message.conversationId :', message.conversationId, 'currentConversation: ', currentConversation)
-        if (currentConversation?.includes(chatTarget.id)) {
-          console.log('its a match!')
-          setMessages(conversation.messages);
-        }
-        else {console.log(
-          'I tried... message.conversationId :', message.conversationId, 'currentConversation: ', currentConversation
-        )}
-      })
-    }
-  }, [socket])
 
   useEffect(scrollToBottom, [messages]);
 
