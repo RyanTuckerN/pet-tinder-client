@@ -8,6 +8,7 @@ import MainLayout from "./components/MainLayout";
 import jwt_decode from "jwt-decode";
 import theme from "./components/Theme";
 import { ThemeProvider } from '@material-ui/styles';
+import API_URL from "./components/_helpers/environment";
 
 function App() {
   //STATE VARIABLE AND SETTERS
