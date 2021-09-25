@@ -255,7 +255,7 @@ export default function CreateProfile(props) {
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       {activeStep === steps.length - 1
-                        ? "Yes, I need to change something"
+                        ? "Go back"
                         : "Back"}
                     </Button>
                   )}
@@ -269,7 +269,7 @@ export default function CreateProfile(props) {
                     }
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? "No, submit!" : "Next"}
+                    {activeStep === steps.length - 1 ? "Submit!" : "Next"}
                   </Button>
                 </div>
               </>
