@@ -12,15 +12,10 @@ const ChatIndex = (props) => {
   const [messages, setMessages] = useState([]);
 
   const messagesEndRef = useRef(null);
-  const scrollToBottom = () =>
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  const handleAlign = (m, i) =>
-    m.user._id == i.user.id ? "flex-end" : "flex-start";
+  const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  const handleAlign = (m, i) => m.user._id == i.user.id ? "flex-end" : "flex-start";
   const handleChange = (e) => setChatMessage(e.target.value);
-  const handleExitChat = () => {
-    setChatTarget(null);
-    setMessages([]);
-  };
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!chatTarget) {
@@ -30,10 +25,6 @@ const ChatIndex = (props) => {
       if (chatMessage.length >= 255) {
         alert("Your message is too long! Keep it under 255 characters.");
       } else {
-        // console.log('MESSAGE', chatMessage)
-        // console.log('SENDER',usersInfo.user)
-        // console.log('RECEIVER',chatTarget.user)
-        // console.log('chatTarget before emit "message"',chatTarget)
         socket.emit("message", {
           text: chatMessage,
           sender: usersInfo.user,
@@ -46,7 +37,10 @@ const ChatIndex = (props) => {
 
   useEffect(() => {
     setChatActive(true);
-    return () => setChatActive(false);
+    return () => {
+      setChatActive(false)
+      socket.emit('leftChat', {id: usersInfo?.user?.id})
+    }
   }, []);
 
   useEffect(() => {

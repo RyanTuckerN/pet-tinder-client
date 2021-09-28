@@ -158,6 +158,11 @@ export default function MainLayout(props) {
       : setAvatarPhoto(dogPic);
   }, [usersInfo]);
 
+  //SEND CHAT TARGET TO SERVER WHEN IT CHANGES
+  useEffect(()=>{
+    socket.emit('chatTarget', {chatTarget, senderId: usersInfo?.user?.id})
+  },[chatTarget])
+
   //PROP OBJECTS
   const profileProps = { token, avatarPhoto, usersInfo, socket };
 
