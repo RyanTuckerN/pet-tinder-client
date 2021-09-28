@@ -10,7 +10,7 @@ const ChatIndex = (props) => {
     props.chatProps;
   const [chatMessage, setChatMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [targetTyping, setTargetTyping] = useState(false);
+  const [targetTyping, setTargetTyping] = useState({typing:false});
 
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,8 +52,8 @@ const ChatIndex = (props) => {
       socket.on("incomingMessage", ({ message, conversation }) => {
           setMessages(conversation.messages);
       });
-      socket.on('targetTyping', ({typing})=>{
-        setTargetTyping(typing)
+      socket.on('targetTyping', (obj)=>{
+        setTargetTyping(obj)
       })
     }
     // return handleExitChat;
@@ -82,7 +82,7 @@ const ChatIndex = (props) => {
               <Typography
                 className="chat-target-text"
                 variant="caption"
-              >{targetTyping?`${chatTarget.name} is typing...`:`${chatTarget.breed}, ${chatTarget.age} years old.`}</Typography>
+              >{targetTyping.typing && targetTyping?.targetId === chatTarget?.id ?`${chatTarget.name} is typing...`:`${chatTarget.breed}, ${chatTarget.age} years old.`}</Typography>
             </div>
           </div>
         ) : (
