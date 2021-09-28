@@ -141,6 +141,7 @@ export default function MainLayout(props) {
   const [avatarPhoto, setAvatarPhoto] = useState(dogPic);
   const [anchorEl, setAnchorEl] = useState(null);
   const [chatActive, setChatActive] = useState(false);
+  const [typingUsers, setTypingUsers] = useState([]);
 
   //FUNCTIONS FOR DRAWER OPEN/CLOSE
   const handleDrawerOpen = () => setOpen(true);
@@ -171,6 +172,8 @@ export default function MainLayout(props) {
     usersInfo,
     socket,
     open,
+    typingUsers,
+    setTypingUsers,
     setChatTarget,
     setChatActive
   };
@@ -181,6 +184,7 @@ export default function MainLayout(props) {
     socket,
     open,
     chatTarget,
+    typingUsers,
     setChatTarget,
     handleDrawerToggle,
   };

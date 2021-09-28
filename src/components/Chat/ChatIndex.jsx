@@ -6,17 +6,27 @@ import ChatMessage from "./ChatMessage";
 import StickyFooter from "./StickyFooter";
 
 const ChatIndex = (props) => {
-  const { socket, usersInfo, chatTarget, setChatTarget, setChatActive, open } =
-    props.chatProps;
+  const {
+    socket,
+    usersInfo,
+    chatTarget,
+    setChatTarget,
+    setChatActive,
+    open,
+    typingUsers,
+    setTypingUsers,
+  } = props.chatProps;
   const [chatMessage, setChatMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [targetTyping, setTargetTyping] = useState({typing:false});
+  const [targetTyping, setTargetTyping] = useState({ typing: false });
 
   const messagesEndRef = useRef(null);
-  const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  const handleAlign = (m, i) => m.user._id == i.user.id ? "flex-end" : "flex-start";
+  const scrollToBottom = () =>
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  const handleAlign = (m, i) =>
+    m.user._id == i.user.id ? "flex-end" : "flex-start";
   const handleChange = (e) => setChatMessage(e.target.value);
- 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!chatTarget) {
@@ -39,9 +49,9 @@ const ChatIndex = (props) => {
   useEffect(() => {
     setChatActive(true);
     return () => {
-      setChatActive(false)
-      socket.emit('leftChat', {id: usersInfo?.user?.id})
-    }
+      setChatActive(false);
+      socket.emit("leftChat", { id: usersInfo?.user?.id });
+    };
   }, []);
 
   useEffect(() => {
@@ -50,20 +60,45 @@ const ChatIndex = (props) => {
         setMessages(conversation.messages)
       );
       socket.on("incomingMessage", ({ message, conversation }) => {
-          setMessages(conversation.messages);
+        setMessages(conversation.messages);
       });
-      socket.on('targetTyping', (obj)=>{
-        setTargetTyping(obj)
-      })
+      socket.on("targetTyping", (obj) => {
+        setTargetTyping(obj);
+        if (obj.typing) {
+          setTypingUsers([...typingUsers, obj.senderId]);
+        } else {
+          setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
+        }
+      });
     }
     // return handleExitChat;
   }, [socket]);
 
-  useEffect(()=>{
-    if(chatMessage.length){
-      socket.emit('typing', {typing: true ,chatTarget, senderId: usersInfo?.user?.id})
-    } else {socket.emit('typing', {typing: false ,chatTarget, senderId: usersInfo?.user?.id} )}
-  },[chatMessage])
+  useEffect(() => {
+    if (chatMessage.length) {
+      socket.emit("typing", {
+        typing: true,
+        chatTarget,
+        senderId: usersInfo?.user?.id,
+      });
+      let typingTimeout = setTimeout(() => {
+        socket.emit("typing", {
+          typing: false,
+          chatTarget,
+          senderId: usersInfo?.user?.id,
+        });
+      }, 6000);
+    } else {
+      socket.emit("typing", {
+        typing: false,
+        chatTarget,
+        senderId: usersInfo?.user?.id,
+      });
+    }
+    // return () => {
+    //   clearTimeout(typingTimeout)
+    // }
+  }, [chatMessage]);
 
   useEffect(scrollToBottom, [messages]);
 
@@ -79,10 +114,11 @@ const ChatIndex = (props) => {
               <Typography className="chat-target-text" variant="h6">
                 {chatTarget.name}
               </Typography>
-              <Typography
-                className="chat-target-text"
-                variant="caption"
-              >{targetTyping.typing && targetTyping?.senderId === chatTarget.id ?`${chatTarget.name} is typing...`:`${chatTarget.breed}, ${chatTarget.age} years old.`}</Typography>
+              <Typography className="chat-target-text" variant="caption">
+                {targetTyping.typing && targetTyping?.senderId === chatTarget.id
+                  ? `${chatTarget.name} is typing...`
+                  : `${chatTarget.breed}, ${chatTarget.age} years old.`}
+              </Typography>
             </div>
           </div>
         ) : (
@@ -112,7 +148,7 @@ const ChatIndex = (props) => {
                 </div>
               ))
             : null}
-            {/* {targetTyping?<p>{`${chatTarget.name} is typing...`}</p>:null} */}
+          {/* {targetTyping?<p>{`${chatTarget.name} is typing...`}</p>:null} */}
         </div>
       </section>
 

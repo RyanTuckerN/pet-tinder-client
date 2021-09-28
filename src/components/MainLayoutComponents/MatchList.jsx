@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import { Chat, ChevronLeft } from "@material-ui/icons";
+import TypingIndicator from "./TypingIndicator";
 
 const MatchList = (props) => {
   const { handleDrawerClose } = props;
@@ -20,6 +21,7 @@ const MatchList = (props) => {
     setChatTarget,
     socket,
     chatTarget,
+    typingUsers,
     handleDrawerToggle,
     onlineUsers,
     open,
@@ -64,7 +66,11 @@ const MatchList = (props) => {
                     />
                   </div>
                 </ListItemAvatar>
-                <OnlineStatus onlineUsers={onlineUsers} match={match} />
+                {typingUsers.includes(match.id) ? (
+                  <TypingIndicator />
+                ) : (
+                  <OnlineStatus onlineUsers={onlineUsers} match={match} />
+                )}
                 <ListItemText primary={match.name} />
               </ListItem>
             </Tooltip>
