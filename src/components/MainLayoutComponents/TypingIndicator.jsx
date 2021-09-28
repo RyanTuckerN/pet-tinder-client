@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MoreHoriz} from '@material-ui/icons';
+import './layout.css'
 
 const TypingIndicator = (props) => {
 const style = {
@@ -13,7 +14,7 @@ const style = {
 
   return ( 
     <>
-      <MoreHoriz style={style}/>
+      <MoreHoriz style={style} id='typing-indicator'/>
     </>
    );
 }
