@@ -10,6 +10,7 @@ const ChatIndex = (props) => {
     props.chatProps;
   const [chatMessage, setChatMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [targetTyping, setTargetTyping] = useState(false);
 
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -51,9 +52,18 @@ const ChatIndex = (props) => {
       socket.on("incomingMessage", ({ message, conversation }) => {
           setMessages(conversation.messages);
       });
+      socket.on('targetTyping', ({typing})=>{
+        setTargetTyping(typing)
+      })
     }
     // return handleExitChat;
   }, [socket]);
+
+  useEffect(()=>{
+    if(chatMessage.length){
+      socket.emit('typing', {typing: true ,chatTarget, senderId: usersInfo?.user?.id})
+    } else {socket.emit('typing', {typing: false ,chatTarget, senderId: usersInfo?.user?.id} )}
+  },[chatMessage])
 
   useEffect(scrollToBottom, [messages]);
 
@@ -72,7 +82,7 @@ const ChatIndex = (props) => {
               <Typography
                 className="chat-target-text"
                 variant="caption"
-              >{`${chatTarget.breed}, ${chatTarget.age} years old.`}</Typography>
+              >{targetTyping?`${chatTarget.name} is typing...`:`${chatTarget.breed}, ${chatTarget.age} years old.`}</Typography>
             </div>
           </div>
         ) : (
@@ -102,6 +112,7 @@ const ChatIndex = (props) => {
                 </div>
               ))
             : null}
+            {/* {targetTyping?<p>{`${chatTarget.name} is typing...`}</p>:null} */}
         </div>
       </section>
 
