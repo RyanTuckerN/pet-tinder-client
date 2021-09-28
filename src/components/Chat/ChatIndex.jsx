@@ -82,7 +82,7 @@ const ChatIndex = (props) => {
               <Typography
                 className="chat-target-text"
                 variant="caption"
-              >{targetTyping.typing && targetTyping?.targetId === chatTarget?.id ?`${chatTarget.name} is typing...`:`${chatTarget.breed}, ${chatTarget.age} years old.`}</Typography>
+              >{targetTyping.typing && targetTyping?.senderId === chatTarget.id ?`${chatTarget.name} is typing...`:`${chatTarget.breed}, ${chatTarget.age} years old.`}</Typography>
             </div>
           </div>
         ) : (
