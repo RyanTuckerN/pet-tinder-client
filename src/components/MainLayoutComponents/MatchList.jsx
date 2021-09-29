@@ -75,9 +75,9 @@ const MatchList = (props) => {
                 <ListItemAvatar>
                   <div className="avatar-wrapper">
                     <Badge 
-                    // badgeContent={notificationsHash[match.id]}
-                    variant='dot'
-                    invisible={notificationsHash[match.id]?false:true}
+                    badgeContent={notificationsHash[match.id]}
+                    // variant='dot'
+                    // invisible={notificationsHash[match.id]?false:true}
                      color='secondary'  >
                       <Avatar
                         src={match.photo_url}
