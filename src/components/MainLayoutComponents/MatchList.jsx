@@ -15,7 +15,6 @@ import {
 } from "@material-ui/core";
 import { Chat, ChevronLeft } from "@material-ui/icons";
 import TypingIndicator from "./TypingIndicator";
-import API_URL from '../_helpers/environment';
 
 const MatchList = (props) => {
   const { handleDrawerClose } = props;

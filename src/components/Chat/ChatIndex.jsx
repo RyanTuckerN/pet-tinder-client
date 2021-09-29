@@ -114,11 +114,11 @@ const ChatIndex = (props) => {
     <>
       <section id="chat-window">
         {chatTarget ? (
-          <div className="chat-target-banner">
+          <div className="chat-target-banner" >
             <Link to={`/profile/${chatTarget.id}`}>
               <Avatar src={chatTarget.photo_url} id="chat-target-avatar" />
             </Link>
-            <div>
+            <div id={targetTyping.typing && targetTyping?.senderId === chatTarget.id ? 'typing-text' : null}>
               <Typography className="chat-target-text" variant="h6">
                 {chatTarget.name}
               </Typography>
