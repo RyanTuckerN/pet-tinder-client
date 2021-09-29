@@ -17,6 +17,7 @@ function App() {
   const [usersInfo, setUsersInfo] = useState({});
   const [onlineUsers, setOnlineUsers] = useState(null);
   const [notifications, setNotifications] = useState(null);
+  const [typingUsers, setTypingUsers] = useState([]);
   const [matchlistNotifications, setMatchlistNotifications] = useState([]);
   const [token, setToken] = useState("");
 
@@ -78,6 +79,13 @@ function App() {
       socket.on("chatNotificationUpdate", chatNotifications=>{
         setMatchlistNotifications(chatNotifications)
       })
+      socket.on("userTyping", obj => {
+        if (obj.typing) {
+          setTypingUsers([...typingUsers, obj.senderId]);
+        } else {
+          setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
+        }
+      })
     }
   }, [socket, token, userId]);
 
@@ -108,6 +116,8 @@ function App() {
     onlineUsers,
     notifications,
     matchlistNotifications,
+    typingUsers,
+    setTypingUsers,
     setMatchlistNotifications,
     setNotifications,
     setUsersInfo,

@@ -128,6 +128,8 @@ export default function MainLayout(props) {
     token,
     notifications,
     matchlistNotifications,
+    typingUsers,
+    setTypingUsers,
     setMatchlistNotifications,
     setNotifications,
     setUsersInfo,
@@ -144,7 +146,6 @@ export default function MainLayout(props) {
   const [avatarPhoto, setAvatarPhoto] = useState(dogPic);
   const [anchorEl, setAnchorEl] = useState(null);
   const [chatActive, setChatActive] = useState(false);
-  const [typingUsers, setTypingUsers] = useState([]);
 
   //FUNCTIONS FOR DRAWER OPEN/CLOSE
   const handleDrawerOpen = () => setOpen(true);

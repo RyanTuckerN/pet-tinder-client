@@ -71,13 +71,7 @@ const ChatIndex = (props) => {
         //   setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
         // }
       });
-      socket.on("userTyping", obj => {
-        if (obj.typing) {
-          setTypingUsers([...typingUsers, obj.senderId]);
-        } else {
-          setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
-        }
-      })
+      
     }
     // return handleExitChat;
   }, [socket]);
@@ -89,19 +83,20 @@ const ChatIndex = (props) => {
         chatTarget,
         senderId: usersInfo?.user?.id,
       });
-      let typingTimeout = setTimeout(() => {
+      
+        // socket.emit("typing", {
+        //   typing: false,
+        //   chatTarget,
+        //   senderId: usersInfo?.user?.id,
+        // });
+    } else {
+      setTimeout(()=>{
         socket.emit("typing", {
           typing: false,
           chatTarget,
           senderId: usersInfo?.user?.id,
         });
-      }, 6000);
-    } else {
-      socket.emit("typing", {
-        typing: false,
-        chatTarget,
-        senderId: usersInfo?.user?.id,
-      });
+      }, 3000)
     }
     // return () => {
     //   clearTimeout(typingTimeout)
