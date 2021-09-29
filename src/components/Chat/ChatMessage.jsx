@@ -1,4 +1,5 @@
 import { Typography, Tooltip } from "@material-ui/core";
+import './Chat.css'
 
 const ChatMessage = (props) => {
   const { message, usersInfo } = props;
