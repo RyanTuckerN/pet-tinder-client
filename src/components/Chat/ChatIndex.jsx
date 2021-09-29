@@ -57,9 +57,9 @@ const ChatIndex = (props) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on("priorMessages", (conversation) =>
+      socket.on("priorMessages", (conversation) => {
         setMessages(conversation.messages)
-      );
+      });
       socket.on("incomingMessage", ({ message, conversation }) => {
         setMessages(conversation.messages);
       });
@@ -71,7 +71,13 @@ const ChatIndex = (props) => {
         //   setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
         // }
       });
-      
+      // socket.on("userTyping", obj => {
+      //   if (obj.typing) {
+      //     setTypingUsers([...typingUsers, obj.senderId]);
+      //   } else {
+      //     setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
+      //   }
+      // })
     }
     // return handleExitChat;
   }, [socket]);
@@ -83,20 +89,19 @@ const ChatIndex = (props) => {
         chatTarget,
         senderId: usersInfo?.user?.id,
       });
-      
-        // socket.emit("typing", {
-        //   typing: false,
-        //   chatTarget,
-        //   senderId: usersInfo?.user?.id,
-        // });
-    } else {
-      setTimeout(()=>{
+      let typingTimeout = setTimeout(() => {
         socket.emit("typing", {
           typing: false,
           chatTarget,
           senderId: usersInfo?.user?.id,
         });
-      }, 3000)
+      }, 6000);
+    } else {
+      socket.emit("typing", {
+        typing: false,
+        chatTarget,
+        senderId: usersInfo?.user?.id,
+      });
     }
     // return () => {
     //   clearTimeout(typingTimeout)
@@ -113,7 +118,7 @@ const ChatIndex = (props) => {
             <Link to={`/profile/${chatTarget.id}`}>
               <Avatar src={chatTarget.photo_url} id="chat-target-avatar" />
             </Link>
-            <div id={targetTyping.typing && targetTyping?.senderId === chatTarget.id ? 'typing-text' : null}>
+            <div>
               <Typography className="chat-target-text" variant="h6">
                 {chatTarget.name}
               </Typography>
