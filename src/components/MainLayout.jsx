@@ -195,7 +195,7 @@ export default function MainLayout(props) {
       const response = await destroyFetch.json();
       // console.log(response);
       
-      socket.emit('chatNoteRequest', {senderId: chatTarget?.id ?? null, userId: usersInfo?.user?.id ?? null})
+      socket.emit('chatNoteRequest', {userId: usersInfo?.user?.id ?? null})
     
     };
     if (chatTarget?.id) {
