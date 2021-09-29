@@ -50,6 +50,7 @@ const ChatIndex = (props) => {
     setChatActive(true);
     return () => {
       setChatActive(false);
+      setChatTarget(null)
       socket.emit("leftChat", { id: usersInfo?.user?.id });
     };
   }, []);
@@ -64,12 +65,19 @@ const ChatIndex = (props) => {
       });
       socket.on("targetTyping", (obj) => {
         setTargetTyping(obj);
+        // if (obj.typing) {
+        //   setTypingUsers([...typingUsers, obj.senderId]);
+        // } else {
+        //   setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
+        // }
+      });
+      socket.on("userTyping", obj => {
         if (obj.typing) {
           setTypingUsers([...typingUsers, obj.senderId]);
         } else {
           setTypingUsers(typingUsers.filter(user=>user!==obj.senderId))
         }
-      });
+      })
     }
     // return handleExitChat;
   }, [socket]);

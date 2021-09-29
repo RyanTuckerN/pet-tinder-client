@@ -20,3 +20,5 @@ const style = {
 }
  
 export default TypingIndicator;
+
+// STILL WANT TO ADD A CHAT NOTIFICATION!!! DON'T FORGET!!!

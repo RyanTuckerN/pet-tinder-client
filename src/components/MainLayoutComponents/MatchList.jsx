@@ -1,7 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import OnlineStatus from "./OnlineStatus";
 import "./layout.css";
 
 import {
+  Badge,
   List,
   ListItem,
   ListItemIcon,
@@ -13,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { Chat, ChevronLeft } from "@material-ui/icons";
 import TypingIndicator from "./TypingIndicator";
+import API_URL from '../_helpers/environment';
 
 const MatchList = (props) => {
   const { handleDrawerClose } = props;
@@ -25,7 +28,21 @@ const MatchList = (props) => {
     handleDrawerToggle,
     onlineUsers,
     open,
+    matchlistNotifications
   } = props.matchListProps;
+  
+  const [notificationsHash, setNotificationsHash] = useState({});
+
+  useEffect(()=>{
+    const hash = matchlistNotifications?.reduce((a,b)=>{
+      if(!a[b.senderId]){
+        a[b.senderId] = 0
+      }
+      a[b.senderId]++
+      return a
+    },{})
+    setNotificationsHash(hash)
+  }, [matchlistNotifications])
 
   return (
     <List>
@@ -57,13 +74,19 @@ const MatchList = (props) => {
               >
                 <ListItemAvatar>
                   <div className="avatar-wrapper">
-                    <Avatar
-                      src={match.photo_url}
-                      id="matchlist-avatar"
-                      className={
-                        chatTarget?.id == match.id ? "current-target" : null
-                      }
-                    />
+                    <Badge 
+                    // badgeContent={notificationsHash[match.id]}
+                    variant='dot'
+                    invisible={notificationsHash[match.id]?false:true}
+                     color='secondary'  >
+                      <Avatar
+                        src={match.photo_url}
+                        id="matchlist-avatar"
+                        className={
+                          chatTarget?.id == match.id ? "current-target" : null
+                        }
+                      />
+                    </Badge>
                   </div>
                 </ListItemAvatar>
                 {typingUsers.includes(match.id) ? (

@@ -7,7 +7,7 @@ import MainLayout from "./components/MainLayout";
 // import NotConnected from './components/MainLayoutComponents/NotConnected'
 import jwt_decode from "jwt-decode";
 import theme from "./components/Theme";
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from "@material-ui/styles";
 import API_URL from "./components/_helpers/environment";
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
   const [usersInfo, setUsersInfo] = useState({});
   const [onlineUsers, setOnlineUsers] = useState(null);
   const [notifications, setNotifications] = useState(null);
+  const [matchlistNotifications, setMatchlistNotifications] = useState([]);
   const [token, setToken] = useState("");
 
   //LOGGING IN AND SIGNING UP
@@ -64,25 +65,24 @@ function App() {
       socket.emit("newLogin", userId);
       socket.on("userCreated", (obj) => {
         setUsersInfo({ ...usersInfo, matches: obj.matches, user: obj.user });
-        // console.log("💎 USER/MATCHES: ", obj);
-        // console.log("🔧 SOCKET ID: ", socket.id);
       });
       socket.on("newUser", (socketIds) => {
         setOnlineUsers(socketIds);
-        // console.log("ONLINE USERS SOCKETS: ", socketIds.mobileSockets);
       });
-      socket.on('matchUpdate', obj=>{
-        socket.emit('newLogin', userId)
+      socket.on("matchUpdate", (obj) => {
+        socket.emit("newLogin", userId);
       });
-      socket.on('notificationResponse', notifications=>{
-        setNotifications(notifications)
+      socket.on("notificationResponse", (notifications) => {
+        setNotifications(notifications);
+      });
+      socket.on("chatNotificationUpdate", chatNotifications=>{
+        setMatchlistNotifications(chatNotifications)
       })
-    } 
+    }
   }, [socket, token, userId]);
 
   //FETCHING NOTIFICATIONS
   useEffect(() => {
-
     const notificationsFetch = async () => {
       const response = await fetch(`${API_URL}/note/`, {
         method: "GET",
@@ -93,10 +93,12 @@ function App() {
       });
       const notificationsJson = await response.json();
       // console.log(notificationsJson.notifications);
-      setNotifications(notificationsJson.notifications)
+      setNotifications(notificationsJson.notifications);
     };
-    notificationsFetch();
-  }, [usersInfo?.matches]);
+    if (usersInfo?.user && token && userId) {
+      notificationsFetch();
+    }
+  }, [usersInfo?.matches, token, userId]);
 
   //PROPS OBJECT
   const mainLayoutProps = {
@@ -105,6 +107,8 @@ function App() {
     usersInfo,
     onlineUsers,
     notifications,
+    matchlistNotifications,
+    setMatchlistNotifications,
     setNotifications,
     setUsersInfo,
     setOnlineUsers,

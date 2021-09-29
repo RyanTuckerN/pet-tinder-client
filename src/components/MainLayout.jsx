@@ -41,6 +41,7 @@ import BackgroundWaves from "./MainLayoutComponents/Background";
 import DisplayProfile from "./Profile/DisplayProfile";
 import Account from "./MainLayoutComponents/Account";
 import Logo from "./MainLayoutComponents/Logo";
+import API_URL from "./_helpers/environment";
 
 let drawerWidth = 220;
 
@@ -126,6 +127,8 @@ export default function MainLayout(props) {
     clearToken,
     token,
     notifications,
+    matchlistNotifications,
+    setMatchlistNotifications,
     setNotifications,
     setUsersInfo,
   } = props.mainLayoutProps;
@@ -159,10 +162,43 @@ export default function MainLayout(props) {
       : setAvatarPhoto(dogPic);
   }, [usersInfo]);
 
-  //SEND CHAT TARGET TO SERVER WHEN IT CHANGES
+  //GET CHAT NOTIFICATIONS ON LOGIN
   useEffect(()=>{
-    socket.emit('chatTarget', {chatTarget, senderId: usersInfo?.user?.id})
-  },[chatTarget])
+    const getChatNotes = async() => {
+      const chatNoteFetch = await fetch(`${API_URL}/chat-note/`, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        }),
+      })
+      const json = await chatNoteFetch.json()
+      setMatchlistNotifications(json)
+    }
+    getChatNotes()
+  }, [])
+
+  //SEND CHAT TARGET TO SERVER WHEN IT CHANGES
+  useEffect(() => {
+    socket.emit("chatTarget", { chatTarget, senderId: usersInfo?.user?.id });
+    const deleteChatNotifications = async () => {
+      const destroyFetch = await fetch(
+        `${API_URL}/chat-note/${chatTarget?.id}`, {
+          method: "DELETE",
+          headers: new Headers({
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          }),
+        }
+      );
+      const response = await destroyFetch.json();
+      // console.log(response);
+      socket.emit('chatNoteRequest', {senderId: chatTarget?.id ?? null, userId: usersInfo?.user?.id ?? null})
+    };
+    if (chatTarget) {
+      deleteChatNotifications();
+    }
+  }, [chatTarget]);
 
   //PROP OBJECTS
   const profileProps = { token, avatarPhoto, usersInfo, socket };
@@ -175,7 +211,7 @@ export default function MainLayout(props) {
     typingUsers,
     setTypingUsers,
     setChatTarget,
-    setChatActive
+    setChatActive,
   };
 
   const matchListProps = {
@@ -185,6 +221,7 @@ export default function MainLayout(props) {
     open,
     chatTarget,
     typingUsers,
+    matchlistNotifications,
     setChatTarget,
     handleDrawerToggle,
   };
@@ -231,7 +268,7 @@ export default function MainLayout(props) {
             >
               <IconButton
                 // color="primary"
-                style={{color: chatActive ? '#f3f0ee' : '#514949'}}
+                style={{ color: chatActive ? "#f3f0ee" : "#514949" }}
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
                 edge="start"
@@ -249,10 +286,15 @@ export default function MainLayout(props) {
             </div>
             <div style={{ marginLeft: "auto" }}>
               {width >= 300 ? (
-                <Badge badgeContent={notifications?.length} color={chatActive ? "primary" : "secondary"}>
+                <Badge
+                  badgeContent={notifications?.length}
+                  color={chatActive ? "primary" : "secondary"}
+                >
                   <Link to="/notifications">
                     <IconButton>
-                      <Notifications style={{color: chatActive ? '#f3f0ee' : '#514949'}} />
+                      <Notifications
+                        style={{ color: chatActive ? "#f3f0ee" : "#514949" }}
+                      />
                     </IconButton>
                   </Link>
                 </Badge>
@@ -407,7 +449,7 @@ export default function MainLayout(props) {
           <Switch>
             <Route exact path="/">
               {/* <Home /> */}
-              <BackgroundWaves usersInfo={usersInfo}/>
+              <BackgroundWaves usersInfo={usersInfo} />
             </Route>
             <Route exact path="/account">
               <Account usersInfo={usersInfo} socket={socket} />
