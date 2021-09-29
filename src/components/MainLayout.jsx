@@ -182,9 +182,9 @@ export default function MainLayout(props) {
   //SEND CHAT TARGET TO SERVER WHEN IT CHANGES
   useEffect(() => {
     socket.emit("chatTarget", { chatTarget, senderId: usersInfo?.user?.id });
-    const deleteChatNotifications = async () => {
+    const deleteChatNotifications = async (id) => {
       const destroyFetch = await fetch(
-        `${API_URL}/chat-note/${chatTarget?.id}`, {
+        `${API_URL}/chat-note/${id}`, {
           method: "DELETE",
           headers: new Headers({
             "Content-Type": "application/json",
@@ -194,10 +194,12 @@ export default function MainLayout(props) {
       );
       const response = await destroyFetch.json();
       // console.log(response);
+      
       socket.emit('chatNoteRequest', {senderId: chatTarget?.id ?? null, userId: usersInfo?.user?.id ?? null})
+    
     };
-    if (chatTarget) {
-      deleteChatNotifications();
+    if (chatTarget?.id) {
+      deleteChatNotifications(chatTarget?.id);
     }
   }, [chatTarget]);
 
