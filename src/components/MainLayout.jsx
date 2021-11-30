@@ -42,6 +42,7 @@ import DisplayProfile from "./Profile/DisplayProfile";
 import Account from "./MainLayoutComponents/Account";
 import Logo from "./MainLayoutComponents/Logo";
 import API_URL from "./_helpers/environment";
+import { smallImage } from "./_helpers/helpers";
 
 let drawerWidth = 220;
 
@@ -143,7 +144,7 @@ export default function MainLayout(props) {
   //STATE
   const [open, setOpen] = useState(false);
   const [chatTarget, setChatTarget] = useState(null);
-  const [avatarPhoto, setAvatarPhoto] = useState(dogPic);
+  const [avatarPhoto, setAvatarPhoto] = useState(smallImage(dogPic));
   const [anchorEl, setAnchorEl] = useState(null);
   const [chatActive, setChatActive] = useState(false);
 
@@ -307,7 +308,7 @@ export default function MainLayout(props) {
                 aria-haspopup="true"
                 onClick={handleAvatarClick}
               >
-                <Avatar alt="Profile Avatar" src={avatarPhoto} />
+                <Avatar alt="Profile Avatar" src={smallImage(avatarPhoto, 30)} />
               </IconButton>
               <Dropdown dropdownProps={dropdownProps} />
             </div>

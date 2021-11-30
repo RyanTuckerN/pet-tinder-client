@@ -14,6 +14,7 @@ import AdDesc from "./AdDesc";
 import ImageUpload from "./ImageUpload";
 import "./Profile.css";
 import API_URL from "../_helpers/environment";
+import { smallImage } from "../_helpers/helpers";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -186,7 +187,7 @@ const Profile = (props) => {
             }}
           >
             <div id="profile-photo-wrapper">
-              <Avatar src={avatarPhoto} style={{ height: 180, width: 180 }} />
+              <Avatar src={smallImage(avatarPhoto)} style={{ height: 180, width: 180 }} />
             </div>
             <hr />
             <div className="profile-section">

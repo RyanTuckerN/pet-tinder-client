@@ -4,6 +4,7 @@ import "./Chat.css";
 import React, { useState, useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 import StickyFooter from "./StickyFooter";
+import { smallImage } from "../_helpers/helpers";
 
 const ChatIndex = (props) => {
   const {
@@ -116,7 +117,7 @@ const ChatIndex = (props) => {
         {chatTarget ? (
           <div className="chat-target-banner" >
             <Link to={`/profile/${chatTarget.id}`}>
-              <Avatar src={chatTarget.photo_url} id="chat-target-avatar" />
+              <Avatar src={smallImage(chatTarget.photo_url)} id="chat-target-avatar" />
             </Link>
             <div>
               <Typography className="chat-target-text" variant="h6">

@@ -12,6 +12,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { LocationOn, Email, Chat } from "@material-ui/icons";
 import NotConnected from "../MainLayoutComponents/NotConnected";
+import { smallImage } from "../_helpers/helpers";
 
 const useStyles = makeStyles({
   root: {
@@ -99,7 +100,7 @@ const DisplayProfile = (props) => {
         >
           <Grid item xs={11}>
             <Avatar
-              src={currentDog.photo_url}
+              src={smallImage(currentDog.photo_url)}
               alt={currentDog.name}
               style={{ width: 200, height: 200, borderRadius: "50%" }}
             />

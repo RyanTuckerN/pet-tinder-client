@@ -1,4 +1,5 @@
 import React from "react";
+import { smallImage } from "../_helpers/helpers";
 import PetTinderLogo from "./assets/PetTinderLogo.png";
 
 const Logo = () => {
@@ -13,7 +14,7 @@ const Logo = () => {
 
   return (
     <div style={div}>
-      <img style={image} src={PetTinderLogo} alt="Pet Tinder Logo" />
+      <img style={image} src={smallImage(PetTinderLogo)} alt="Pet Tinder Logo" />
     </div>
   );
 };

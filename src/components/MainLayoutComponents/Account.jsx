@@ -137,7 +137,6 @@ const Account = (props) => {
               className={classes.disabledInput}
               margin="normal"
               fullWidth
-              naked
               id="full-name"
               label="Name"
               name="full-name"

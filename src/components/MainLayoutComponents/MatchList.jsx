@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { Chat, ChevronLeft } from "@material-ui/icons";
 import TypingIndicator from "./TypingIndicator";
+import { smallImage } from '../_helpers/helpers';
 
 const MatchList = (props) => {
   const { handleDrawerClose } = props;
@@ -79,7 +80,7 @@ const MatchList = (props) => {
                     invisible={notificationsHash[match.id]?false:true}
                      color='secondary'  >
                       <Avatar
-                        src={match.photo_url}
+                        src={smallImage(match.photo_url)}
                         id="matchlist-avatar"
                         className={
                           chatTarget?.id == match.id ? "current-target" : null

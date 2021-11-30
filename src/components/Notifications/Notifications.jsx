@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import API_URL from "../_helpers/environment";
+import { smallImage } from "../_helpers/helpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,7 +87,7 @@ export default function NotificationsPage(props) {
                           <ListItem onClick={() => handleChatTarget(n)}>
                             <ListItemAvatar>
                               <Avatar
-                                src={matchImages ? matchImages[n.target] : null}
+                                src={matchImages ? smallImage(matchImages[n.target]) : null}
                               ></Avatar>
                             </ListItemAvatar>
                             <ListItemText primary={n.message} style={{color: '#f3f0ee'}} />

@@ -8,16 +8,15 @@ import Typography from "@material-ui/core/Typography";
 import "../Matches/Matches.css";
 import distanceBetCoor from "../../functions/distanceBetCoor";
 import useWindowDimension from "../customHooks/useWindowDimension";
+import { smallImage } from "../_helpers/helpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: 20,
     height: 600,
-    // minWidth:320,
     textAlign: "left",
     color: "#514949",
     background: "#f3f0ee",
-    // height: 'calc(80vh-200)'
   },
   media: {
     height: 280,
@@ -25,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     backgroundColor: "#514949",
     color: "#f3f0ee",
-    // fontFamily: "Montserrat",
   },
 }));
 
@@ -51,7 +49,7 @@ export default function DogDisplay(props) {
       >
         <CardMedia
           className={classes.media}
-          image={dog.photo_url}
+          image={smallImage(dog.photo_url, 300)}
           title={dog.name}
           // style={{height: height < 800 ? height - 500 : 280}}
         />
